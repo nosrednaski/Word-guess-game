@@ -12,6 +12,7 @@ const maxTries = 9;           // Countdown as user guesses incorrectly
 var wrongGuess = [];          // stores the letters the user already guessed
 var guessingWord = [];        // word that we are building to currentWord
 var currentWordIndex;         // Index number of the currentWord
+var gameStarted = false;      // Boolean for game start
 var hasFinished = false;      // Resets game 
 var wins = 0;                 // win counter 
 guessRemain = 0;         // 
@@ -25,6 +26,7 @@ function resetGame() {
     // select random word from wordBank
     currentWordIndex = Math.floor(Math.random() * (wordBank.length));
     
+    gameStarted = false;
     guessRemain = maxTries;
     wrongGuess = [];
     guessingWord = [];
@@ -41,15 +43,16 @@ function resetGame() {
 function updateDisplay() {
 
     
-    // Avoid commas from array. Concatenate a string from each value in the arry.
+    // Avoid commas from array. Concatenate a string from each value in the array.
     var guessingWordText = "";
     for (var i = 0; i < guessingWord.length; i++) {
         guessingWordText =+ guessingWord[i];
     }
 
+    
     // Link IDs to variables
     document.getElementById("wins").innerText = wins;
-    document.getElementById("correctLetter").innerText = guessingWordText;
+    document.getElementById("correctLetter").innerText = guessingWord;
     document.getElementById("guessRemain").innerText = guessRemain;
     document.getElementById("wrongGuess").innerText = wrongGuess
 };
@@ -72,7 +75,7 @@ function evaluateGuess (letter) {
         guessRemain--;
     } else {
         // Loop through and replace with a letter if correct
-        for(var i = 0; i < positions.length; i++) {
+        for (var i = 0; i < positions.length; i++) {
             guessingWord[positions[i]] = letter;
         }
     }
@@ -118,7 +121,7 @@ document.onkeydown = function(event) {
     }
 }; 
 
-console.log(currentWordIndex);
+
 
 // This homework proved to be too much for me. I wrote something different trying to figure 
 // out how to replace "_" with correct letters. But none of my code was working then I found 
